@@ -1,0 +1,13 @@
+right {
+    position:absolute;
+    bottom:100px;
+    right: 200px;
+}
+ 
+ 
+ left {
+    position:absolute;
+    bottom:100px;
+    left: 200px;
+
+}
