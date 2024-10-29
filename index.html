@@ -70,6 +70,32 @@
                 </div>
             </div>
         </div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reminderModal">
+            Open Reminder to Journal
+        </button>
+        <div class="modal fade" id="reminderModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Reminder:</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h6 style="margin-bottom: 5%">Don't forget to write in your journal!</h6>
+                        <div>
+                            <div style="margin-bottom:3%">
+                                Set a time to send an email reminder below.
+                            </div>
+                            <label for="timeInput">Time:</label>
+                            <input type="text" class="form-control" id="timeInput">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="assets/script.js"></script>
     </body>
