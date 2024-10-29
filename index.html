@@ -1,11 +1,115 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>MindHaven</title>
-    </head>
-    <body>
-        <header>
-            <h1>MindHaven 🌻</h1>
-        </header>
-    </body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindHaven</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Link to your custom CSS file -->
+    <style>
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>MindHaven 🌻</h1>
+    </header>
+
+    <!-- Modal Structure -->
+    <div class="modal" id="exampleModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Would you like to invest in your MindBank, or would you like to
+              get started right away?
+            </h5>
+            <button
+              type="button"
+              class="close"
+              onclick="closeModal()"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <button id="yesBtn" class="btn btn-success">
+              Invest in my MindBank
+            </button>
+            <button id="noBtn" class="btn btn-danger">
+              Get Started Right Away
+            </button>
+            <div id="taskInput" style="display: none">
+              <input
+                type="text"
+                placeholder="Enter your task"
+                class="form-control my-2"
+              />
+              <button
+                id="saveTaskBtn"
+                style="display: none"
+                class="btn btn-primary"
+              >
+                Save Task
+              </button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="closeModal()"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Function to open the modal
+      function showModal() {
+        document.getElementById("exampleModal").style.display = "block";
+      }
+
+      // Close Modal Function
+      function closeModal() {
+        document.getElementById("exampleModal").style.display = "none";
+      }
+
+      // Show the modal when the page loads
+      window.onload = function () {
+        showModal();
+      };
+
+      // Yes Button Functionality
+      document.getElementById("yesBtn").addEventListener("click", function () {
+        document.getElementById("taskInput").style.display = "block";
+        document.getElementById("saveTaskBtn").style.display = "inline-block";
+      });
+
+      // No Button Functionality
+      document.getElementById("noBtn").addEventListener("click", function () {
+        console.log("No button clicked!"); // For debugging
+        closeModal(); // You can close the modal here if needed
+      });
+    </script>
+  </body>
 </html>
