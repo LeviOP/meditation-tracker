@@ -50,100 +50,103 @@
         </div>
 
         <!-- Reminder modal -->
-         <Center>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reminderModal">Open Reminder to Journal</button>
-        <div class="modal fade" id="reminderModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5>Reminder:</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h6 style="margin-bottom: 5%">Don't forget to write in your journal!</h6>
-                        <div>
-                            <div style="margin-bottom:3%">
-                                Set a time to send an email reminder below.
+        <center>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reminderModal">Open Reminder to Journal</button>
+            <div class="modal fade" id="reminderModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5>Reminder:</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h6 style="margin-bottom: 5%">Don't forget to write in your journal!</h6>
+                            <div>
+                                <div style="margin-bottom:3%">
+                                    Set a time to send an email reminder below.
+                                </div>
+                                <label for="timeInput">Time:</label>
+                                <input type="text" class="form-control" id="timeInput">
                             </div>
-                            <label for="timeInput">Time:</label>
-                            <input type="text" class="form-control" id="timeInput">
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </Center>
+        </center>
 
 
-        <!-- Add to MindBank modal -->
-        <left>
-       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mindbankAddModal">Add to MindBank</button>
-        <div class="modal fade" id="mindbankAddModal" tabindex="-1" aria-labelledby="mindbankAddModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="mindbankAddModalLabel">What's on your mind?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Add activities here that help you practice mindfulness</label>
-                                <textarea class="form-control" id="message-text"></textarea>
+        <div class="container d-flex p-2 gap-3">
+            <div class="left">
+                <div class="list border rounded mb-2"></div>
+                <!-- Add to MindBank modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mindbankAddModal">Add to MindBank</button>
+                <div class="modal fade" id="mindbankAddModal" tabindex="-1" aria-labelledby="mindbankAddModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="mindbankAddModalLabel">What's on your mind?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Send message</button>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="message-text" class="col-form-label">Add activities here that help you practice mindfulness</label>
+                                        <textarea class="form-control" id="message-text"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Send message</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </left> 
 
-        <!-- Add to log modal -->
-         <right>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logAddModal">Add to log</button>
-        <div class="modal fade" id="logAddModal" tabindex="-1" aria-labelledby="addLogModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="addLogModalLabel">Add to log</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Title input -->
-                        <div class="mb-3">
-                            <label for="logTitle" class="form-label">Title</label>
-                            <input type="text" class="form-control" id="logTitle" placeholder="Enter title">
-                        </div>
+            <div class="right">
+                <div class="list border rounded mb-2"></div>
+                <!-- Add to log modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logAddModal">Add to log</button>
+                <div class="modal fade" id="logAddModal" tabindex="-1" aria-labelledby="addLogModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="addLogModalLabel">Add to log</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Title input -->
+                                <div class="mb-3">
+                                    <label for="logTitle" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="logTitle" placeholder="Enter title">
+                                </div>
 
-                        <!-- Main text area -->
-                        <div class="mb-3">
-                            <label for="logEntry" class="form-label">Log Entry</label>
-                            <textarea class="form-control" id="logEntry" rows="5" placeholder="Write your entry here"></textarea>
-                        </div>
+                                <!-- Main text area -->
+                                <div class="mb-3">
+                                    <label for="logEntry" class="form-label">Log Entry</label>
+                                    <textarea class="form-control" id="logEntry" rows="5" placeholder="Write your entry here"></textarea>
+                                </div>
 
-                        <!-- Date picker -->
-                        <div class="mb-3">
-                            <label for="logDate" class="form-label">Date</label>
-                            <input type="datetime-local" class="form-control" id="logDate" value="">
+                                <!-- Date picker -->
+                                <div class="mb-3">
+                                    <label for="logDate" class="form-label">Date</label>
+                                    <input type="datetime-local" class="form-control" id="logDate" value="">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Add</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Add</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </right>
 
-    
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="assets/script.js"></script>
