@@ -13,3 +13,69 @@
 .mindbank-item {
     background: lightskyblue;
 }
+
+:root {
+    --purple-primary: #6a0dad;   /*Primary Purple */
+    --purple-secondary: #b19cd9; /*Lighter Purple*/
+    --purple-accent: #9370db;    /*Accent Color*/
+}
+
+body {
+    background-color: #fcebff; 
+} /*Soft Shade/
+
+/* Override the Bootstrap .btn-danger for a softer look */
+#starterModal .btn-danger {
+    background-color: rgb(128, 93, 255); /* A pop of color */
+    border-color: plum;
+}
+
+
+.btn-primary {
+    background-color: var(--purple-primary);
+    border-color: plum;
+}
+
+.btn-secondary {
+    background-color: var(--purple-accent);
+    border-color: var(--purple-secondary);
+}
+
+.btn-success {
+    background-color: var(--purple-accent);
+    border-color: var(--purple-accent);
+}
+
+
+.navbar {
+    background-color: #fcebff;
+}
+
+.navbar-brand {
+    color: purple;
+}
+
+.navbar .btn {
+    background-color: var(--purple-secondary);
+    color: #ffff; /*White text for contrast*/
+    border: none; /*Removed border*/
+}
+
+/*Hover Effect*/
+.navbar-btn:hover {
+    background-color: #800080; /*Darker shade of purple on hover*/
+    color: #f0f0f0; /*Slightly lighter text on hover*/
+}
+
+.modal-header {
+    background-color: var(--purple-primary);
+    color: whitesmoke;
+}
+
+.modal-footer {
+    background-color: var(--purple-secondary);
+}
+
+.modal-content {
+    border-color: var(--purple-accent);
+}
