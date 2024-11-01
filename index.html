@@ -22,7 +22,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="starterModalLabel">
-                            Would you like to invest in your MindBank, or would you like to get started right away?
+                            Would you like to invest in your MindBank, or get started right away?
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -61,8 +61,8 @@
                             <h5>Reminder:</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <div class="modal-body">
-                            <h6 style="margin-bottom: 5%">Don't forget to write in your journal!</h6>
+                        <div class="modal-body" class="display-none">
+                            <h6 style="margin-bottom: 5%">Don't forget to write in your journal! 📖</h6>
                             <div>
                                 <div style="margin-bottom:3%">
                                     Set a time to send an email reminder below.
@@ -84,18 +84,18 @@
             <div class="left">
                 <div class="list overflow-scroll border rounded mb-2 d-flex p-2 gap-2 flex-column" id="mindBankItems"></div>
                 <!-- Add to MindBank modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mindBankModal">Add to MindBank</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mindBankModal">Add to MindBank 🧠</button>
                 <div class="modal fade" id="mindBankModal" tabindex="-1" aria-labelledby="mindbankAddModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="mindBankModalLabel">What's on your mind?</h5>
+                                <h5 class="modal-title" id="mindBankModalLabel">What's on your mind? 🧠</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form id="mindBankModalForm">
                                     <div class="mb-3">
-                                        <label for="message-text" class="col-form-label">Add activities here that help you practice mindfulness</label>
+                                        <label for="message-text" class="col-form-label">Add activities to practice mindfulness</label>
                                         <input type="text" class="form-control" name="text"></input>
                                     </div>
                                 </form>
@@ -112,12 +112,12 @@
             <div class="right">
                 <div class="list overflow-scroll border rounded mb-2 d-flex p-2 gap-2 flex-column" id="logEntries"></div>
                 <!-- Add to log modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logModal">Add to log</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logModal">Add to log ✏️</button>
                 <div class="modal fade" id="logModal" tabindex="-1" aria-labelledby="addLogModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="addLogModalLabel">Add to log</h1>
+                                <h1 class="modal-title fs-5" id="addLogModalLabel">Add to log ✏️</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
