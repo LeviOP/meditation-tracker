@@ -11,8 +11,16 @@
     background-color: #c67bd3;
 }
 
-.mindbank-item {
+.list-item {
     background: white;
+}
+
+.list-item h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 3px solid black;
+    padding-bottom: 5px;
+    width: 100%;
 }
 
 :root {

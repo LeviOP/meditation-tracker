@@ -82,7 +82,7 @@
 
         <div class="container d-flex p-2 gap-3">
             <div class="left">
-                <div class="list border rounded mb-2 d-flex p-2 gap-2 flex-column" id="mindBankItems"></div>
+                <div class="list overflow-scroll border rounded mb-2 d-flex p-2 gap-2 flex-column" id="mindBankItems"></div>
                 <!-- Add to MindBank modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mindBankModal">Add to MindBank 🧠</button>
                 <div class="modal fade" id="mindBankModal" tabindex="-1" aria-labelledby="mindbankAddModalLabel" aria-hidden="true">
@@ -110,10 +110,10 @@
             </div>
 
             <div class="right">
-                <div class="list border rounded mb-2"></div>
+                <div class="list overflow-scroll border rounded mb-2 d-flex p-2 gap-2 flex-column" id="logEntries"></div>
                 <!-- Add to log modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logAddModal">Add to log ✏️</button>
-                <div class="modal fade" id="logAddModal" tabindex="-1" aria-labelledby="addLogModalLabel" aria-hidden="true">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logModal">Add to log ✏️</button>
+                <div class="modal fade" id="logModal" tabindex="-1" aria-labelledby="addLogModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -121,27 +121,29 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <!-- Title input -->
-                                <div class="mb-3">
-                                    <label for="logTitle" class="form-label">Title</label>
-                                    <input type="text" class="form-control" id="logTitle" placeholder="Enter title">
-                                </div>
+                                <form id="logModalForm">
+                                    <!-- Title input -->
+                                    <div class="mb-3">
+                                        <label for="logTitle" class="form-label">Title</label>
+                                        <input type="text" class="form-control" name="title" placeholder="Enter title">
+                                    </div>
 
-                                <!-- Main text area -->
-                                <div class="mb-3">
-                                    <label for="logEntry" class="form-label">Log Entry</label>
-                                    <textarea class="form-control" id="logEntry" rows="5" placeholder="Write your entry here"></textarea>
-                                </div>
+                                    <!-- Main text area -->
+                                    <div class="mb-3">
+                                        <label for="logEntry" class="form-label">Log Entry</label>
+                                        <textarea class="form-control" name="content" rows="5" placeholder="Write your entry here"></textarea>
+                                    </div>
 
-                                <!-- Date picker -->
-                                <div class="mb-3">
-                                    <label for="logDate" class="form-label">Date</label>
-                                    <input type="datetime-local" class="form-control" id="logDate" value="">
-                                </div>
+                                    <!-- Date picker -->
+                                    <div class="mb-3">
+                                        <label for="logDate" class="form-label">Date</label>
+                                        <input type="datetime-local" class="form-control" name="date">
+                                    </div>
+                                </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Add</button>
+                                <button type="submit" form="logModalForm" class="btn btn-primary">Add</button>
                             </div>
                         </div>
                     </div>
