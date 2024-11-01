@@ -5,9 +5,28 @@ starterModal.show();
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
+// Data reset button
+document.getElementById("data-reset").addEventListener("click", () => {
+    localStorage.removeItem("mindbank");
+    window.location.reload();
+});
+
 // MindBank code
-const mindBankItems = [];
+const mindBankItems = getMindBankItems();
 const mindBankItemContainer = document.getElementById("mindBankItems");
+renderMindBankItems();
+
+function getMindBankItems() {
+    const result = localStorage.getItem("mindbank");
+    if (result === null) return [];
+    return JSON.parse(result);
+}
+
+function addMindBankItem(item) {
+    mindBankItems.push(item);
+    localStorage.setItem("mindbank", JSON.stringify(mindBankItems));
+    renderMindBankItems();
+}
 
 function renderMindBankItems() {
     mindBankItemContainer.innerHTML = "";
@@ -26,12 +45,12 @@ const mindBankModalElement = document.getElementById("mindBankModal")
 const mindBankModal = new bootstrap.Modal(mindBankModalElement);
 
 const mindBankModalForm = document.getElementById("mindBankModalForm")
+
 mindBankModalForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(mindBankModalForm);
     const text = formData.get("text")
-    mindBankItems.push(text);
-    renderMindBankItems();
+    addMindBankItem(text);
     mindBankModal.hide();
 });
 
@@ -49,9 +68,6 @@ noBtn.addEventListener("click", () => {
     starterModal.hide();
 });
 
-// An array to store the mindbank tasks//
-let mindBank = [];
-
 // Task input field/save button by ID//
 const taskInputField = document.getElementById("taskInputField");
 const saveTaskBtn = document.getElementById("saveTaskBtn");
@@ -60,35 +76,14 @@ const saveTaskBtn = document.getElementById("saveTaskBtn");
 const taskForm = document.getElementById("taskForm");
 taskForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const data= new FormData (taskForm);
-    const list= data.get("task-list");
-mindBankItems.push(list);
-renderMindBankItems();
+    const data = new FormData (taskForm);
+    const list = data.get("task-list");
+    addMindBankItem(list);
 });
 
 
 //Show the input section when "Yes" button is clicked//
 yesBtn.addEventListener("click", () => {
-    document.getElementById("taskInput").style.display ="block";
+    document.getElementById("taskInput").style.display = "block";
     saveTaskBtn.style.display = "inline-block"; //Show the save button
-});
-
-//Event listener for the "Save Task" button
-saveTaskBtn.addEventListener("click", () => {
-    // Get the value entered by the user
-    const task = taskInputField.ariaValueMax.trim();
-
-    //Check if the input is not empty
-    if (task) {
-        //Add task to MindBank array
-        mindBank.push(task);
-
-        //Log the MindBank to the console (for testing purposes)
-        console.log("Current MindBank:", mindBank);
-
-        // Clear the input field for the next entry
-        taskInputField.value ="";
-    } else {
-        alert("Please enter a task before saving.");
-    }
 });

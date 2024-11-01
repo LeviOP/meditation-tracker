@@ -8,10 +8,11 @@
 
 .list {
     height: 500px;
+    background-color: #c67bd3;
 }
 
 .mindbank-item {
-    background: lightskyblue;
+    background: white;
 }
 
 :root {
