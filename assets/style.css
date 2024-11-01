@@ -13,6 +13,17 @@
 
 .list-item {
     background: white;
+    word-break: break-all;
+}
+
+.list-item button {
+    margin-left: 1px;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.list-item button:hover {
+    background-color: #c1c1c1;
 }
 
 .list-item h2 {
