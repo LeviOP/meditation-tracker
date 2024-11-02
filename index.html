@@ -15,33 +15,57 @@
             </nav>
         </header>
         <div>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reminderModal">
-              Open Reminder to Journal
-            </button>
+            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reminderModal">
+              Set Journal Reminder
+            </button> -->
+        </div>
+        <div>
+            <div style="margin-bottom:1%">
+                Set a time to send a reminder below
+            </div>
+            <label for="timeInput">Time:</label>
+            <input type="time" class="form-control" id="timeInput" onchange="setTimeCookie(this.value)">
+            </div>
         </div>
         <div class="modal" id="reminderModal">
           <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-               <h5>Reminder:</h5>
+               <h2>Reminder:</h2>
                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                  <h6 style="margin-bottom: 5%">Don't forget to write in your journal!</h6>
-                  <div>
-                    <div style="margin-bottom:3%">
-                        Set a time to send an email reminder below.
-                    </div>
-                    <label for="timeInput">Time:</label>
-                    <input type="text" class="form-control" id="timeInput">
-                  </div>
-                </div>
+                  <h5 style="margin-bottom: 5%">Don't forget to write in your journal!</h5>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
                 </div>
             </div>
           </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script>
+            function setTimeCookie(value){
+                localStorage.setItem ("timeEntered", value);
+                localStorage.setItem ("modalOpened", "false");
+            }
+        
+            function checkTime(){
+                const time=localStorage.getItem("timeEntered");
+                if(time != null){
+                    const hourMinute = time.split(":");
+                    const currentDate = new Date();
+                    const dateToShow = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), hourMinute[0], hourMinute[1], "00");
+                    const timeToShow = dateToShow.getTime();
+                    const currentTime = currentDate.getTime();
+                    if(timeToShow <= currentTime){
+                       if(localStorage.getItem("modalOpened") == "false"){ 
+                         const popUpModal = new bootstrap.Modal(document.getElementById("reminderModal"));
+                         popUpModal.show();
+                         localStorage.setItem ("modalOpened", "true");
+                      }
+                    } 
+                }
+            } 
+           setInterval(checkTime, 1000);
+        </script>
     </body>
 </html>
