@@ -51,33 +51,48 @@
             </div>
         </div>
 
-        <!-- Reminder modal -->
+        <!-- Reminder set modal -->
         <center>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reminderModal">Open Reminder to Journal</button>
-            <div class="modal fade" id="reminderModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5>Reminder:</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body" class="display-none">
-                            <h6 style="margin-bottom: 5%">Don't forget to write in your journal! 📖</h6>
-                            <div>
-                                <div style="margin-bottom:3%">
-                                    Set a time to send an email reminder below.
-                                </div>
-                                <label for="timeInput">Time:</label>
-                                <input type="text" class="form-control" id="timeInput">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
-                        </div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reminderSetModal">Set journal reminder</button>
+        </center>
+        <div class="modal fade" id="reminderSetModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Set journal reminder</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="reminderSetModalForm">
+                            <label class="form-label" for="reminder">Reminder date and time:</label>
+                            <input class="form-control" type="datetime-local" name="reminder" id="reminder">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" form="reminderSetModalForm" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
                     </div>
                 </div>
             </div>
-        </center>
+        </div>
+
+        <!-- Reminder modal -->
+        <div class="modal fade" id="reminderModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Reminder to journal!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h1>This is your reminder to be mindful or journal :)</h1>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Thanks!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <div class="container d-flex p-2 gap-3">
@@ -155,5 +170,51 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="assets/script.js"></script>
+        <script>
+            let reminderTimeout = null;
+
+            function startReminderTimeout(reminderDate) {
+                const time = new Date(reminderDate).getTime();
+                if (time < Date.now()) return console.log("too late...");
+                console.log("setting...", time - Date.now());
+                reminderTimeout = setTimeout(showReminder, time - Date.now());
+            }
+
+            const storedReminder = localStorage.getItem("reminder");
+            if (storedReminder !== null) startReminderTimeout(storedReminder);
+
+            function showReminder() {
+                reminderModal.show();
+                console.log("Reminder!");
+                reminderTimeout = null;
+            }
+
+            const reminderSetModalElement = document.getElementById("reminderSetModal");
+            const reminderSetModal = new bootstrap.Modal(reminderSetModalElement);
+
+            const reminderModalElement = document.getElementById("reminderModal");
+            const reminderModal = new bootstrap.Modal(reminderModalElement);
+
+            const reminderSetForm = document.getElementById("reminderSetModalForm");
+            reminderSetForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const formData = new FormData(reminderSetForm);
+                const reminder = formData.get("reminder");
+                localStorage.setItem("reminder", reminder);
+                if (reminderTimeout !== null) clearTimeout(reminderTimeout);
+                startReminderTimeout(reminder);
+                reminderSetModal.hide();
+            });
+
+            reminderSetModalElement.addEventListener("show.bs.modal", (e) => {
+                const datetime = e.target.querySelector("#reminder");
+                const reminder = localStorage.getItem("reminder");
+                if (reminder !== null) return datetime.value = reminder;
+
+                const date = new Date();
+                date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+                datetime.value = date.toISOString().slice(0,16);
+            });
+        </script>
     </body>
 </html>
