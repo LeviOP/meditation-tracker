@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>MindHaven 🌻</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="assets/style.css">
     </head>
     <body>
         <header>
@@ -14,58 +15,206 @@
                 </div>
             </nav>
         </header>
-        <div>
-            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reminderModal">
-              Set Journal Reminder
-            </button> -->
-        </div>
-        <div>
-            <div style="margin-bottom:1%">
-                Set a time to send a reminder below
-            </div>
-            <label for="timeInput">Time:</label>
-            <input type="time" class="form-control" id="timeInput" onchange="setTimeCookie(this.value)">
-            </div>
-        </div>
-        <div class="modal" id="reminderModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-               <h2>Reminder:</h2>
-               <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+        <!-- Starter modal -->
+        <div class="modal fade" id="starterModal" tabindex="-1" aria-labelledby="starterModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="starterModalLabel">
+                            Would you like to invest in your MindBank, or get started right away?
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <button id="yesBtn" class="btn btn-success">
+                            Invest in my MindBank
+                        </button>
+                        <button id="noBtn" class="btn btn-danger">
+                            Get Started Right Away
+                        </button>
+                        <div id="taskInput" style="display: none">
+                            <form id="taskForm">
+                                <input type="text" name= "task-list" placeholder="Enter your task" class="form-control my-2" />
+                                <button id="saveTaskBtn" style="display: none" class="btn btn-primary">
+                                    Save Task
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                  <h5 style="margin-bottom: 5%">Don't forget to write in your journal!</h5>
-                <div class="modal-footer">
+            </div>
+        </div>
+
+        <!-- Reminder set modal -->
+        <center>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reminderSetModal">Set journal reminder</button>
+        </center>
+        <div class="modal fade" id="reminderSetModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Set journal reminder</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="reminderSetModalForm">
+                            <label class="form-label" for="reminder">Reminder date and time:</label>
+                            <input class="form-control" type="datetime-local" name="reminder" id="reminder">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" form="reminderSetModalForm" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                    </div>
                 </div>
             </div>
-          </div>
         </div>
+
+        <!-- Reminder modal -->
+        <div class="modal fade" id="reminderModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Reminder to journal!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h1>This is your reminder to be mindful or journal :)</h1>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Thanks!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container d-flex p-2 gap-3">
+            <div class="left">
+                <div class="list overflow-auto border rounded mb-2 d-flex p-2 gap-2 flex-column" id="mindBankItems"></div>
+                <!-- Add to MindBank modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mindBankModal">Add to MindBank 🧠</button>
+                <div class="modal fade" id="mindBankModal" tabindex="-1" aria-labelledby="mindbankAddModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="mindBankModalLabel">What's on your mind? 🧠</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="mindBankModalForm">
+                                    <div class="mb-3">
+                                        <label for="message-text" class="col-form-label">Add activities to practice mindfulness</label>
+                                        <input type="text" class="form-control" name="text"></input>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" form="mindBankModalForm" class="btn btn-primary">Add to MindBank</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="list overflow-auto border rounded mb-2 d-flex p-2 gap-2 flex-column" id="logEntries"></div>
+                <!-- Add to log modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logModal">Add to log ✏️</button>
+                <div class="modal fade" id="logModal" tabindex="-1" aria-labelledby="addLogModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="addLogModalLabel">Add to log ✏️</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="logModalForm">
+                                    <!-- Title input -->
+                                    <div class="mb-3">
+                                        <label for="logTitle" class="form-label">Title</label>
+                                        <input type="text" class="form-control" name="title" placeholder="Enter title">
+                                    </div>
+
+                                    <!-- Main text area -->
+                                    <div class="mb-3">
+                                        <label for="logEntry" class="form-label">Log Entry</label>
+                                        <textarea class="form-control" name="content" rows="5" placeholder="Write your entry here"></textarea>
+                                    </div>
+
+                                    <!-- Date picker -->
+                                    <div class="mb-3">
+                                        <label for="logDate" class="form-label">Date</label>
+                                        <input type="datetime-local" class="form-control" name="date">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" form="logModalForm" class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="data-reset">Reset user data</button>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="assets/script.js"></script>
         <script>
-            function setTimeCookie(value){
-                localStorage.setItem ("timeEntered", value);
-                localStorage.setItem ("modalOpened", "false");
+            let reminderTimeout = null;
+
+            function startReminderTimeout(reminderDate) {
+                const time = new Date(reminderDate).getTime();
+                if (time < Date.now()) return console.log("too late...");
+                console.log("setting...", time - Date.now());
+                reminderTimeout = setTimeout(showReminder, time - Date.now());
             }
-        
-            function checkTime(){
-                const time=localStorage.getItem("timeEntered");
-                if(time != null){
-                    const hourMinute = time.split(":");
-                    const currentDate = new Date();
-                    const dateToShow = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), hourMinute[0], hourMinute[1], "00");
-                    const timeToShow = dateToShow.getTime();
-                    const currentTime = currentDate.getTime();
-                    if(timeToShow <= currentTime){
-                       if(localStorage.getItem("modalOpened") == "false"){ 
-                         const popUpModal = new bootstrap.Modal(document.getElementById("reminderModal"));
-                         popUpModal.show();
-                         localStorage.setItem ("modalOpened", "true");
-                      }
-                    } 
-                }
-            } 
-           setInterval(checkTime, 1000);
+
+            const storedReminder = localStorage.getItem("reminder");
+            if (storedReminder !== null) startReminderTimeout(storedReminder);
+
+            function showReminder() {
+                reminderModal.show();
+                console.log("Reminder!");
+                reminderTimeout = null;
+            }
+
+            const reminderSetModalElement = document.getElementById("reminderSetModal");
+            const reminderSetModal = new bootstrap.Modal(reminderSetModalElement);
+
+            const reminderModalElement = document.getElementById("reminderModal");
+            const reminderModal = new bootstrap.Modal(reminderModalElement);
+
+            const reminderSetForm = document.getElementById("reminderSetModalForm");
+            reminderSetForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const formData = new FormData(reminderSetForm);
+                const reminder = formData.get("reminder");
+                localStorage.setItem("reminder", reminder);
+                if (reminderTimeout !== null) clearTimeout(reminderTimeout);
+                startReminderTimeout(reminder);
+                reminderSetModal.hide();
+            });
+
+            reminderSetModalElement.addEventListener("show.bs.modal", (e) => {
+                const datetime = e.target.querySelector("#reminder");
+                const reminder = localStorage.getItem("reminder");
+                if (reminder !== null) return datetime.value = reminder;
+
+                const date = new Date();
+                date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+                datetime.value = date.toISOString().slice(0,16);
+            });
         </script>
     </body>
 </html>
