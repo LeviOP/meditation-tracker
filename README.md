@@ -1,4 +1,5 @@
 # MindHaven
+
 ## User Story
 ```
 AS A MindHaven user
@@ -14,16 +15,16 @@ Future development for MindHaven could include the ability to share your MindBan
 ## Usage
 
 When users first open MindHaven they will see an intro Modal that will allow them to start entering in their MindBank immediately, or take their time to see all the features within MindHaven.
-![add to your MindBank](/assets/images/Startup%20Modal%20Mindbank.PNG)
+![add to your MindBank](./assets/images/Startup-Modal-Mindbank.PNG)
 
 After, users can add activities or goals to their MindBank and check them off when they are completed.
-![activity within the MindBank](/assets/images/Mindbankwithactivity.PNG)
+![activity within the MindBank](./assets/images/activity-with-mindbank.PNG)
 
 When users want to keep track of their thoughts or make comments about certain activities they can use the log to create dated entries.
-![log with a dated entry](/assets/images/logentry.PNG)
+![log with a dated entry](./assets/images/log-with-dated-entry.PNG)
 
 There are timed reminders that will show up to keep the user on track.
-![modal for reminders](/assets/images/Remindermodal.PNG)
+![modal for reminders](./assets/images/modal-for-reminders.PNG)
 
 ## License
 
