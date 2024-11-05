@@ -9,7 +9,7 @@ yesBtn.addEventListener("click", () => {
 
 // Event listener for the no button to hide the modal when clicked//
 noBtn.addEventListener("click", () => {
-    starterModal.hide();
+    introModal.hide();
 });
 
 // Task input field/save button by ID//
@@ -30,15 +30,71 @@ yesBtn.addEventListener("click", () => {
     document.getElementById("taskInput").style.display = "block";
     saveTaskBtn.style.display = "inline-block"; //Show the save button
 });
-const starterModalElement = document.getElementById("starterModal")
-const starterModal = new bootstrap.Modal(starterModalElement);
-starterModal.show();
+const introModalElement = document.getElementById("introModal")
+const introModal = new bootstrap.Modal(introModalElement);
+
+const introCompleted = localStorage.getItem("introCompleted");
+if (introCompleted === null) introModal.show();
+
+introModalElement.addEventListener("hide.bs.modal", () => {
+    localStorage.setItem("introCompleted", "true");
+});
 
 // Data reset button
 document.getElementById("data-reset").addEventListener("click", () => {
     localStorage.removeItem("mindbank");
+    localStorage.removeItem("log");
+    localStorage.removeItem("reminder");
+    localStorage.removeItem("introCompleted");
     window.location.reload();
 });
+
+// Reminder code
+let reminderTimeout = null;
+
+function startReminderTimeout(reminderDate) {
+    const time = new Date(reminderDate).getTime();
+    if (time < Date.now()) return console.log("too late...");
+    console.log("setting...", time - Date.now());
+    reminderTimeout = setTimeout(showReminder, time - Date.now());
+}
+
+const storedReminder = localStorage.getItem("reminder");
+if (storedReminder !== null) startReminderTimeout(storedReminder);
+
+function showReminder() {
+    reminderModal.show();
+    console.log("Reminder!");
+    reminderTimeout = null;
+}
+
+const reminderSetModalElement = document.getElementById("reminderSetModal");
+const reminderSetModal = new bootstrap.Modal(reminderSetModalElement);
+
+const reminderModalElement = document.getElementById("reminderModal");
+const reminderModal = new bootstrap.Modal(reminderModalElement);
+
+const reminderSetForm = document.getElementById("reminderSetModalForm");
+reminderSetForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(reminderSetForm);
+    const reminder = formData.get("reminder");
+    localStorage.setItem("reminder", reminder);
+    if (reminderTimeout !== null) clearTimeout(reminderTimeout);
+    startReminderTimeout(reminder);
+    reminderSetModal.hide();
+});
+
+reminderSetModalElement.addEventListener("show.bs.modal", (e) => {
+    const datetime = e.target.querySelector("#reminder");
+    const reminder = localStorage.getItem("reminder");
+    if (reminder !== null) return datetime.value = reminder;
+
+    const date = new Date();
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    datetime.value = date.toISOString().slice(0,16);
+});
+
 
 // MindBank code
 const mindBankItems = getMindBankItems();
@@ -82,7 +138,7 @@ function renderMindBankItems() {
         const completeButton = document.createElement("button");
         completeButton.innerText = "✅";
         completeButton.addEventListener("click", () => {
-
+            completeMindbankItem(index);
         });
         container.appendChild(completeButton);
 
@@ -97,6 +153,17 @@ function deleteMindBankItem(index) {
     renderMindBankItems();
 }
 
+function completeMindbankItem(index) {
+    addLogEntry({
+        type: "mindBankItem",
+        name: mindBankItems[index],
+        date: Date.now()
+    });
+    mindBankItems.splice(index, 1);
+    localStorage.setItem("mindbank", JSON.stringify(mindBankItems));
+    renderMindBankItems();
+}
+
 const mindBankModalElement = document.getElementById("mindBankModal")
 const mindBankModal = new bootstrap.Modal(mindBankModalElement);
 
@@ -106,8 +173,7 @@ mindBankModalForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(mindBankModalForm);
     const text = formData.get("text").trim();
-    if (text !== "")
-    addMindBankItem(text);
+    if (text !== "") addMindBankItem(text);
     mindBankModal.hide();
 });
 
@@ -127,35 +193,60 @@ function getLogEntries() {
 }
 
 function addLogEntry(entry) {
-    logEntries.push(entry);
+    logEntries.unshift(entry);
     localStorage.setItem("log", JSON.stringify(logEntries));
     renderLog();
 }
 
 function renderLog() {
     logEntryContainer.innerHTML = "";
-    logEntries.forEach(({ title, content, date }) => {
-        const container = document.createElement("div");
-        container.classList.add("border");
-        container.classList.add("rounded");
-        container.classList.add("p-1")
-        container.classList.add("list-item")
+    logEntries.forEach((logEntry) => {
+        if (logEntry.type === "logEntry") {
+            const { title, content, date } = logEntry;
+            const container = document.createElement("div");
+            container.classList.add("border");
+            container.classList.add("rounded");
+            container.classList.add("p-1")
+            container.classList.add("list-item")
 
-        const titleElement = document.createElement("h2");
-        titleElement.innerText = title;
-        container.appendChild(titleElement);
+            const titleElement = document.createElement("h2");
+            titleElement.innerText = title;
+            container.appendChild(titleElement);
 
-        const contentElement = document.createElement("p");
-        contentElement.innerText = content;
-        container.appendChild(contentElement);
+            const contentElement = document.createElement("p");
+            contentElement.innerText = content;
+            container.appendChild(contentElement);
 
-        const dateElement = document.createElement("time");
-        const dateObj = new Date(date);
-        dateElement.value = dateObj.toISOString();
-        dateElement.innerText = dateObj.toLocaleString();
-        container.appendChild(dateElement);
+            const dateElement = document.createElement("time");
+            const dateObj = new Date(date);
+            dateElement.value = dateObj.toISOString();
+            dateElement.innerText = dateObj.toLocaleString();
+            container.appendChild(dateElement);
 
-        logEntryContainer.appendChild(container);
+            logEntryContainer.appendChild(container);
+        } else if (logEntry.type === "mindBankItem") {
+            const { name, date } = logEntry;
+            const container = document.createElement("div");
+            container.classList.add("border");
+            container.classList.add("rounded");
+            container.classList.add("p-1")
+            container.classList.add("list-item")
+
+            const contentElement = document.createElement("h5");
+            contentElement.innerText = "MindBank item compelted: ";
+            const nameElement = document.createElement("b");
+            nameElement.innerText = name;
+            contentElement.appendChild(nameElement);
+            container.appendChild(contentElement);
+
+            const dateElement = document.createElement("time");
+            const dateObj = new Date(date);
+            dateElement.value = dateObj.toISOString();
+            dateElement.innerText = dateObj.toLocaleString();
+            container.appendChild(dateElement);
+
+            logEntryContainer.appendChild(container);
+        }
     });
 }
 
@@ -170,7 +261,7 @@ logModalForm.addEventListener("submit", (e) => {
     const title = formData.get("title");
     const content = formData.get("content");
     const date = formData.get("date")
-    addLogEntry({ title, content, date });
+    addLogEntry({ type: "logEntry", title, content, date });
     logModal.hide();
 });
 
